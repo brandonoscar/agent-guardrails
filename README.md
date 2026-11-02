@@ -67,10 +67,10 @@ What the guards did:
 
 ## Install
 
-Not on PyPI. Install a release from GitHub:
+Not on PyPI. Install it from GitHub (add `@<commit>` to the URL to pin one):
 
 ```bash
-pip install "agent-guardrails @ git+https://github.com/brandonoscar/agent-guardrails@v0.1.0"
+pip install "agent-guardrails @ git+https://github.com/brandonoscar/agent-guardrails"
 ```
 
 Extras go after the name, as in `agent-guardrails[openai-agents,postgres] @ git+...`: `openai-agents` for the SDK adapter, `postgres` for the Postgres store. The core needs neither. A package named `agent-guardrails` on PyPI is a different project, so `pip install agent-guardrails` won't get you this one.
