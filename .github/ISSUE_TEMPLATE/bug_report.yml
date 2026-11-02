@@ -1,0 +1,29 @@
+name: Bug report
+description: Something doesn't work the way the README says it does.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran and what you saw. Paste errors as text, not screenshots.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: The smallest example that shows it
+      render: python
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: This package's version (or commit), Python, and openai-agents or Postgres if they're involved.
+    validations:
+      required: true

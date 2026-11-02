@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-guardrails"
+version = "0.1.0"
+description = "Fail-closed write approval, at-most-once writes, call budgets, nested-agent caps and a per-run cost ceiling for the OpenAI Agents SDK."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "Brandon Oscar" }]
+keywords = ["agents", "llm", "guardrails", "openai-agents", "human-in-the-loop", "idempotency"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+# The core has no dependencies. The SDK adapter, the scripted test model and
+# the Postgres store each need their own extra.
+dependencies = []
+
+[project.optional-dependencies]
+openai-agents = ["openai-agents>=0.24,<0.25"]
+postgres = ["asyncpg>=0.30"]
+dev = [
+    "openai-agents>=0.24,<0.25",
+    "asyncpg>=0.30",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+    "mypy>=1.13",
+]
+
+[project.urls]
+Source = "https://github.com/brandonoscar/agent-guardrails"
+Issues = "https://github.com/brandonoscar/agent-guardrails/issues"
+Changelog = "https://github.com/brandonoscar/agent-guardrails/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_guardrails"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-ra --strict-markers"
+markers = [
+    "postgres: needs a Postgres database (AGENT_GUARDRAILS_TEST_DSN)",
+]
+filterwarnings = ["error::pytest.PytestUnraisableExceptionWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "ASYNC", "PT"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests", "examples"]
+
+[[tool.mypy.overrides]]
+module = ["asyncpg", "asyncpg.*"]
+ignore_missing_imports = true
