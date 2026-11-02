@@ -32,7 +32,7 @@ postgres = ["asyncpg>=0.30"]
 dev = [
     "openai-agents>=0.24,<0.25",
     "asyncpg>=0.30",
-    "pytest>=8.3",
+    "pytest>=9.2.0",
     "pytest-asyncio>=0.24",
     "ruff>=0.8",
     "mypy>=1.13",
